@@ -317,7 +317,7 @@ inline void setup() {
 	#if (F_CPU == 65536)
 		T16M = 0b11010001;        // Use ILRC clock source (65.536 kHz), /16, Interrupt on (rising) Bit 9
 	#elif (F_CPU == 524288)
-		T16M = 0b00111010;        // Use IHRC clock source (524.288 kHz), /64, Interrupt on (rising) Bit 10
+		T16M = 0b00111010;        // Use System (IHRC) clock source (524.288 kHz), /64, Interrupt on (rising) Bit 10
 	#endif
 #else
 	EOSCR = 0b10100000;         // Enable External Oscillator (32kHz crystal)
