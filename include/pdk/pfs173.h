@@ -220,6 +220,17 @@ __sfr16          _t16c;
 #define INTEN_TM2                    0x40
 #define INTEN_TM3                    0x80
 
+#define INTEN_PA0_BIT                0
+#define INTEN_PB5_BIT                0
+#define INTEN_PB0_BIT                1
+#define INTEN_PA4_BIT                1
+#define INTEN_T16_BIT                2
+#define INTEN_ADC_BIT                3
+#define INTEN_COMP_BIT               4
+#define INTEN_PWMG_BIT               5
+#define INTEN_TM2_BIT                6
+#define INTEN_TM3_BIT                7
+
 //interrupt request definitions
 #define INTRQ_PA0                    0x01
 #define INTRQ_PB5                    0x01
@@ -231,6 +242,17 @@ __sfr16          _t16c;
 #define INTRQ_PWMG                   0x20
 #define INTRQ_TM2                    0x40
 #define INTRQ_TM3                    0x80
+
+#define INTRQ_PA0_BIT                0
+#define INTRQ_PB5_BIT                0
+#define INTRQ_PB0_BIT                1
+#define INTRQ_PA4_BIT                1
+#define INTRQ_T16_BIT                2
+#define INTRQ_ADC_BIT                3
+#define INTRQ_COMP_BIT               4
+#define INTRQ_PWMG_BIT               5
+#define INTRQ_TM2_BIT                6
+#define INTRQ_TM3_BIT                7
 
 //tm16 definitions
 #define T16_INTSRC_8BIT              0x00

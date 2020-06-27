@@ -127,11 +127,21 @@ __sfr16          _t16c;
 #define INTEN_COMP                   0x10
 #define INTEN_TM2                    0x40
 
+#define INTEN_PA0_BIT                0
+#define INTEN_T16_BIT                2
+#define INTEN_COMP_BIT               4
+#define INTEN_TM2_BIT                6
+
 //interrupt request definitions
 #define INTRQ_PA0                    0x01
 #define INTRQ_T16                    0x04
 #define INTRQ_COMP                   0x10
 #define INTRQ_TM2                    0x40
+
+#define INTRQ_PA0_BIT                0
+#define INTRQ_T16_BIT                2
+#define INTRQ_COMP_BIT               4
+#define INTRQ_TM2_BIT                6
 
 //tm16 definitions
 #define T16_INTSRC_8BIT              0x00
