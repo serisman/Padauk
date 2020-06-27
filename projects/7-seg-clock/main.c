@@ -1,4 +1,4 @@
-#include "pdk.h"
+#include "pdk/hal.h"
 #include "util.h"
 
 #define PORT_SEGMENTS   PB

@@ -2,11 +2,11 @@
 #define __HAL_H__
 
 #if defined(PMS150C)
- #include "pdk/pms150c.h"
+ #include "pms150c.h"
 #elif defined(PFS154)
- #include "pdk/pfs154.h"
+ #include "pfs154.h"
 #elif defined(PFS173)
- #include "pdk/pfs173.h"
+ #include "pfs173.h"
 #else
  #error "Unknown processor. Please define processor"
 #endif
