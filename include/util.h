@@ -36,6 +36,7 @@
 #define ARG2_EX(a,b,...)							b
 
 #define _REG_EX(reg,...)              _ ## reg
+#define _REG_CTRL_EX(reg,...)         _ ## reg ## c
 #define _BIT_EX(reg,bit)              bit
 
 #define PORT_EX(port,pin)             port
@@ -49,6 +50,7 @@
 #define ARG2(args)										ARG2_EX(args)
 
 #define _REG(spec)                    _REG_EX(spec)
+#define _REG_CTRL(spec)               _REG_CTRL_EX(spec)
 #define _BIT(spec)                    _BIT_EX(spec)
 
 #define PORT(pinspec)                	PORT_EX(pinspec)
