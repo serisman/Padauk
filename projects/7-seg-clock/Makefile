@@ -6,8 +6,8 @@
 
 # ---------------------------------------------------------------------
 
-ARCH = pdk14
 DEVICE = PFS154
+#DEVICE = PFS173
 #F_CPU = 65536
 F_CPU = 524288
 TARGET_VDD_MV = 3300
@@ -15,6 +15,12 @@ TARGET_VDD = 3.3
 DEBUG = 0
 
 # ---------------------------------------------------------------------
+
+ifeq ($(DEVICE), PFS154)
+	ARCH = pdk14
+else ifeq ($(DEVICE), PFS173)
+	ARCH = pdk15
+endif
 
 ROOT_DIR = ../..
 BUILD_DIR = .build
