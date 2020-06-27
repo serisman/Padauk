@@ -6,6 +6,7 @@
 
 # ---------------------------------------------------------------------
 
+#DEVICE = PMS152
 DEVICE = PFS154
 #DEVICE = PFS173
 #F_CPU = 65536
@@ -16,7 +17,9 @@ DEBUG = 0
 
 # ---------------------------------------------------------------------
 
-ifeq ($(DEVICE), PFS154)
+ifeq ($(DEVICE), PMS152)
+	ARCH = pdk14
+else ifeq ($(DEVICE), PFS154)
 	ARCH = pdk14
 else ifeq ($(DEVICE), PFS173)
 	ARCH = pdk15
