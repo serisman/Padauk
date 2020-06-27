@@ -6,9 +6,13 @@
 
 #define DS1307_I2C_ADDRESS    0b11010000
 
-inline void ds1307_set_address(uint8_t addr) {
+inline void ds1307_start_write() {
   i2c_master_start();
   i2c_master_write_byte(DS1307_I2C_ADDRESS);
+}
+
+inline void ds1307_start_write_address(uint8_t addr) {
+  ds1307_start_write();
   i2c_master_write_byte(addr);
 }
 
