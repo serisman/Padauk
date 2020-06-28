@@ -13,7 +13,7 @@ DEVICE = PFS154
 F_CPU = 524288
 TARGET_VDD_MV = 3300
 TARGET_VDD = 3.3
-DEBUG = 0
+#DEBUG = 1
 
 # ---------------------------------------------------------------------
 
@@ -24,6 +24,8 @@ else ifeq ($(DEVICE), PFS154)
 else ifeq ($(DEVICE), PFS173)
 	ARCH = pdk15
 endif
+
+DEBUG ?= 0
 
 ROOT_DIR = ../..
 BUILD_DIR = .build
@@ -66,9 +68,11 @@ rom.hex: $(BUILD_DIR)/rom.ihx
 rom.bin: $(BUILD_DIR)/rom.ihx
 	makebin -p $(BUILD_DIR)/rom.ihx rom.bin
 
-size: $(BUILD_DIR)/rom.ihx
+size: rom.bin
 	@echo '---------- Segments ----------'
 	@egrep '(ABS,CON)|(REL,CON)' $(BUILD_DIR)/rom.map | gawk --non-decimal-data '{dec = sprintf("%d","0x" $$2); print dec " " $$0}' | /usr/bin/sort -n -k1 | cut -f2- -d' '
+	@echo '------------------------------'
+	@stat -L --printf "Size of rom.bin: %s bytes\n" rom.bin
 
 program: size
 	$(EASYPDKPROG) -n $(DEVICE) write $(BUILD_DIR)/rom.ihx
