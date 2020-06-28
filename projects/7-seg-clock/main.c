@@ -17,7 +17,7 @@ uint8_t hours_10=1, hours_01=2, minutes_10, minutes_01, seconds_10, seconds_01, 
 uint8_t digit1=0b01000000, digit2=0b01000000, digit3=0b01000000, digit4=0b01000000;
 uint8_t current_digit_mask = 0b00000001;
 
-uint8_t _tmp, prev_quarter_seconds, btn_ctr, display_mode, config_mode;
+uint8_t _tmp, prev_quarter_seconds, btn_ctr, display_mode, config_mode, config_ctr;
 
 // void display_next_digit()
 //
@@ -257,11 +257,15 @@ void increment_config_value() {
 // Check the button's state and process button up/down events
 void process_btn() {
 	if (isPinLow(PIN_BTN)) {
-		if (!btn_ctr) {
+		if (!btn_ctr) {               // On button down
 			btn_ctr = 1;
+			display_mode = 1;           // Briefly show Seconds
+      update_display();
 		} else if (btn_ctr == 5) {    // Long press (don't wait for button up)
 			btn_ctr++;
+			display_mode = 0;
       config_mode++;              // Enter config / Move to next config setting
+      config_ctr = 1;
       if (config_mode == 8) {
         config_mode = 0;          // Exit config
       }
@@ -271,12 +275,11 @@ void process_btn() {
       config_mode = 0;            // Exit config
       update_display();
     }
-	} else if (btn_ctr) {
+	} else if (btn_ctr) {           // On button up
 		if (btn_ctr < 5) {            // Short press (wait for button up)
 			if (config_mode) {
+			  config_ctr = 1;
 				increment_config_value(); // Increment config setting
-			} else {
-				display_mode = 1;         // Briefly show Seconds
 			}
 			update_display();
 		}
@@ -289,10 +292,13 @@ void every_quarter_second() {
 	if ((quarter_seconds & 0b00000011) == 0b00000011) {
     update_clock();
   }
-  update_display();
   if (btn_ctr && btn_ctr != 255) {
  		btn_ctr++;
 	}
+	if (config_mode && config_ctr++ == 40) {
+    config_mode = 0;            // Exit config (timeout)
+	}
+  update_display();
 }
 
 // Main processing loop
