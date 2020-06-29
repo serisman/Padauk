@@ -20,9 +20,9 @@
 #define EASY_PDK_FUSE(f) { __asm__(".area FUSE (ABS)\n.org (0x4ff*2)\n.word ("_ASMD(FUSE_RES_BITS_HIGH)"|"_ASMD(f)")\n.area CODE\n"); }
 
 //set calibration macros
-#define EASY_PDK_CALIBRATE_IHRC EASY_PDK_CALIBRATE_IHRC_H8
-#define EASY_PDK_CALIBRATE_ILRC EASY_PDK_CALIBRATE_ILRC_L8
-#define EASY_PDK_CALIBRATE_BG   EASY_PDK_CALIBRATE_BG_B1A
+#define EASY_PDK_CALIBRATE_IHRC EASY_PDK_CALIBRATE_IHRC_H10
+#define EASY_PDK_CALIBRATE_ILRC EASY_PDK_CALIBRATE_ILRC_L8 // TODO: this needs PADIER fix
+#define EASY_PDK_CALIBRATE_BG   EASY_PDK_CALIBRATE_BG_B1A // TODO: this needs PADIER fix
 #define EASY_PDK_USE_FACTORY_BGTR() { __asm__("call #0x4f6\n mov "_ASMV(BGTR)",a\n"); }
 
 #define ILRC_FREQ  55000
@@ -251,7 +251,7 @@ __sfr16          _t16c;
 
 //padie definitions
 #define PADIE_PA0_WAKEUP_ENABLE      0x01
-#define PADIE_PA3_ENABLE             0x08
+#define PADIE_PA3_WAKEUP_ENABLE      0x08
 #define PADIE_PA4_WAKEUP_ENABLE      0x10
 #define PADIE_PA5_WAKEUP_ENABLE      0x20
 #define PADIE_PA6_WAKEUP_ENABLE      0x40
@@ -370,8 +370,8 @@ __sfr16          _t16c;
 #define GPCC_COMP_MINUS_PA4          0x02
 #define GPCC_COMP_MINUS_BANDGAP_1V2  0x04
 #define GPCC_COMP_MINUS_VINT_R       0x06
-#define GPCC_COMP_MINUS_PA6          0x08
-#define GPCC_COMP_MINUS_PA7          0x0A
+#define GPCC_COMP_MINUS_PB6          0x08
+#define GPCC_COMP_MINUS_PB7          0x0A
 #define GPCC_COMP_OUT_INVERT         0x10
 #define GPCC_COMP_OUT_TO_TM2CLK      0x20
 #define GPCC_COMP_RESULT_NEGATIV     0x00
@@ -440,17 +440,17 @@ __sfr16          _t16c;
 #define PWMG2C_OUT_PB5               0x0C
 
 //rop definitions
-//#define ROP_UNK_PB0                  0x00
-//#define ROP_UNK_PA4                  0x01
-//#define ROP_UNK_PA0                  0x02
-//#define ROP_UNK_PB5                  0x03
-#define ROP_TMX_6BIT                   0x00
-#define ROP_TMX_7BIT                   0x10
-#define ROP_TMX_16MHZ                  0x00
-#define ROP_TMX_32MHZ                  0x20
-#define ROP_PURE_PWM                   0x00
-#define ROP_GPC_PWM                    0x40
-#define ROP_PWM_16MHZ                  0x00
-#define ROP_PWM_32MHZ                  0x80
+#define ROP_INT_SRC_PB0              0x00
+#define ROP_INT_SRC_PA4              0x01
+#define ROP_INT_SRC_PA0              0x00
+#define ROP_INT_SRC_PB5              0x02
+#define ROP_TMX_6BIT                 0x00
+#define ROP_TMX_7BIT                 0x10
+#define ROP_TMX_16MHZ                0x00
+#define ROP_TMX_32MHZ                0x20
+#define ROP_PURE_PWM                 0x00
+#define ROP_GPC_PWM                  0x40
+#define ROP_PWM_16MHZ                0x00
+#define ROP_PWM_32MHZ                0x80
 
 #endif //__PMS152_H__
