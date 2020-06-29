@@ -313,6 +313,10 @@ inline void loop() {
 
 // Setup/enable hardware
 inline void setup() {
+  // Make sure PA7/PA6 is Disabled for External Crystal (recommended for all ICs)
+  // Make sure PA5 is Enabled as input for Button (needed by PMS152/PFS173)
+  PADIER = 0b00100000;
+
 	// Set appropriate pins as outputs (all pins are input by default)
 	PAC = 0b00011001;           // Set PA[0,3,4] to output (74HC595 for digits)
 	PBC = 0xFF;                 // Set Port B[0-7] to output (segments)
@@ -364,12 +368,19 @@ __endasm;
 }
 
 unsigned char _sdcc_external_startup(void) {
-#if (F_CPU == 65536)
-  EASY_PDK_INIT_SYSCLOCK_ILRC();
-  EASY_PDK_CALIBRATE_ILRC(65536, TARGET_VDD_MV);
-#elif (F_CPU == 524288)
+  // Make sure we have a reasonable LVR value.
+  // Red LEDs work at around 2V, so let's use that as our minimum.
+  MISCLVR = MISCLVR_2V;
+
+  // Calibrate IHRC or IRLC for values that work better for timekeeping.
+  // Nowhere near accurate enough for actual timekeeping, but good enough for debugging (i.e. testing without a crystal).
+  // For real timekeeping, we use an external 32.768 kHz crystal as input to T16.
+#if (F_CPU == 524288)
   EASY_PDK_INIT_SYSCLOCK_500KHZ();
   EASY_PDK_CALIBRATE_IHRC(524288, TARGET_VDD_MV);
+#elif (F_CPU == 65536)
+  EASY_PDK_INIT_SYSCLOCK_ILRC();
+  EASY_PDK_CALIBRATE_ILRC(65536, TARGET_VDD_MV);
 #else
 # error "Unknown F_CPU"
 #endif
