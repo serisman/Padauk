@@ -1,5 +1,5 @@
-#ifndef __i2c_master_h_included__
-#define __i2c_master_h_included__
+#ifndef __I2C_MASTER_H__
+#define __I2C_MASTER_H__
 
 #if !defined(PIN_I2C_SCL)
 	#define PIN_I2C_SCL         PA,6
@@ -20,4 +20,4 @@ bool i2c_master_read_bit();
 bool i2c_master_write_byte(uint8_t byte);
 uint8_t i2c_master_read_byte(bool nack);
 
-#endif /* __i2c_master_h_included__ */
+#endif /* __I2C_MASTER_H__ */

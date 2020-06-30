@@ -1,5 +1,5 @@
-#ifndef __PDKCOMMON_H__
-#define __PDKCOMMON_H__
+#ifndef __PDK_COMMON_H__
+#define __PDK_COMMON_H__
 
 //macros so we can use defines in assembler strings
 #define _STRINGIFY(x) #x
@@ -193,4 +193,4 @@ __asm__(                                 \
 )
 
 
-#endif //__PDKCOMMON_H__
+#endif //__PDK_COMMON_H__

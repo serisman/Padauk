@@ -1,5 +1,5 @@
-#ifndef __ds1307_h_included__
-#define __ds1307_h_included__
+#ifndef __DS1307_H__
+#define __DS1307_H__
 
 #include "i2c_master.h"
 #include "util.h"
@@ -33,4 +33,4 @@ inline void ds1307_stop() {
 	i2c_master_stop();
 }
 
-#endif /* __ds1307_h_included__ */
+#endif /* __DS1307_H__ */

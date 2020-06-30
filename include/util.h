@@ -1,5 +1,5 @@
-#ifndef __util_h_included__
-#define __util_h_included__
+#ifndef __UTIL_H__
+#define __UTIL_H__
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -75,4 +75,4 @@
 
 // ----------------------------------------------------------------------
 
-#endif /* __util_h_included__ */
+#endif /* __UTIL_H__ */

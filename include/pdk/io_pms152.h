@@ -1,9 +1,6 @@
-#ifndef __PMS152_H__
-#define __PMS152_H__
+#ifndef __PDK_IO_PMS152_H__
+#define __PDK_IO_PMS152_H__
 
-#ifndef PMS152
-#define PMS152
-#endif
 #if !defined __SDCC_pdk14
 #error "PMS152 needs PDK14 backend. Compile with -mpdk14"
 #endif
@@ -453,4 +450,4 @@ __sfr16          _t16c;
 #define ROP_PWM_16MHZ                0x00
 #define ROP_PWM_32MHZ                0x80
 
-#endif //__PMS152_H__
+#endif //__PDK_IO_PMS152_H__

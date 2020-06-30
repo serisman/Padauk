@@ -1,4 +1,4 @@
-#include "pdk/hal.h"
+#include "pdk/io.h"
 #include "util.h"
 #include "i2c_master.h"
 

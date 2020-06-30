@@ -1,4 +1,4 @@
-#include "pdk/hal.h"
+#include "pdk/io.h"
 #include "util.h"
 
 #define PIN_LED1        PA,3

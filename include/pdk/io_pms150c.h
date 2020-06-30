@@ -1,9 +1,6 @@
-#ifndef __PMS150C_H__
-#define __PMS150C_H__
+#ifndef __PDK_IO_PMS150C_H__
+#define __PDK_IO_PMS150C_H__
 
-#ifndef PMS150C
-#define PMS150C
-#endif
 #if !defined __SDCC_pdk13
 #error "PMS150C needs PDK13 backend. Compile with -mpdk13"
 #endif
@@ -275,4 +272,4 @@ __sfr16          _t16c;
 #define GPCS_COMP_WAKEUP_ENABLE      0x40
 #define GPCS_COMP_OUTPUT_PA0         0x80
 
-#endif //__PMS150C_H__
+#endif //__PDK_IO_PMS150C_H__
