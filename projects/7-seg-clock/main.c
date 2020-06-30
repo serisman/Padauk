@@ -364,7 +364,7 @@ unsigned char _sdcc_external_startup(void) {
   // Red LEDs work at around 2V, so let's use that as our minimum.
   MISCLVR = MISCLVR_2V;
 
-  // Calibrate IHRC or IRLC for values that work better for timekeeping.
+  // Calibrate IHRC or ILRC for values that work better for timekeeping.
   // Nowhere near accurate enough for actual timekeeping, but good enough for debugging (i.e. testing without a crystal).
   // For real timekeeping, we use an external 32.768 kHz crystal as input to T16.
 #if (F_CPU == 524288)
