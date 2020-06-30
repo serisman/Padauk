@@ -1,5 +1,7 @@
 ## Blink Example
 
+![Action Shot](https://github.com/serisman/Padauk/raw/master/examples/blink/action%20shots/blink.gif)
+
 This is the obligatory blink example that can be useful to prove that we know how to:
 - Compile code
 - Program the MCU
@@ -22,9 +24,6 @@ This is the obligatory blink example that can be useful to prove that we know ho
 Edit the options at the top of the Makefile to:
 - Pick a different MCU
 - Use a different frequency for the system clock (switches between the high speed internal oscillator 'IHRC', and the low speed internal oscillator 'IRLC'). 
-
-### Action Shot:
-![Action Shot](https://github.com/serisman/Padauk/raw/master/examples/blink/action%20shots/blink.gif)
 
 ### Toolchain:
 - Compiler: Requires [SDCC 3.9.0](http://sdcc.sourceforge.net/) (or newer)
