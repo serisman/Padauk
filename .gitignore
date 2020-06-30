@@ -1,4 +1,3 @@
 .idea/
 **/.build/
-**/rom.bin
-**/rom.hex
+**/.output/
