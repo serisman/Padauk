@@ -5,14 +5,14 @@
 This is the obligatory blink example that can be useful to prove that we know how to:
 - Compile code
 - Program the MCU
-- Set and Calibrate the operating frequency of the MCU
+- Set and calibrate the operating frequency of the MCU
 - Work with timer interrupts
 - Work with digital inputs and outputs
 
 ### Assumptions:
 - Tested to work with PFS173 and PFS154.  Probably will also work with other MCUs as the code is fairly generic.
-- LEDs are connected between pins PA3, PA4, and PA6 on one side and VDD on the other side (i.e. MCU pins sink current through the LEDs)
-- A Button is connected between pin PA5 and GND
+- LEDs are connected between pins PA3, PA4, and PA6 on one side and VDD on the other side (i.e. MCU pins sink current through the LEDs).
+- A Button is connected between pin PA5 and GND.
 
 ### Features:
 - Uses hardware Timer16 to generate an interrupt every quarter second or so.
@@ -23,7 +23,7 @@ This is the obligatory blink example that can be useful to prove that we know ho
 ### Customization:
 Edit the options at the top of the Makefile to:
 - Pick a different MCU
-- Use a different frequency for the system clock (switches between the high speed internal oscillator 'IHRC', and the low speed internal oscillator 'IRLC'). 
+- Use a different frequency for the system clock (switches between the high speed internal oscillator 'IHRC', and the low speed internal oscillator 'ILRC'). 
 
 ### Toolchain:
 - Compiler: Requires [SDCC 3.9.0](http://sdcc.sourceforge.net/) (or newer)
