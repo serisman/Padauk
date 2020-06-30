@@ -18,15 +18,15 @@ This is the obligatory blink example that can be useful to prove that we know ho
 - LED 3 (PA6) will light up whenever the Button (PA5) is pressed.
 - If using the pictured PDK Dev Board, LED 4 (PA5) will also light up whenever the Button is pressed as they share a common MCU pin.
 
+### Customization:
+Edit the options at the top of the Makefile to pick a different MCU, or use a different frequency for the system clock. 
+
 ### Action Shot:
 ![Action Shot](https://github.com/serisman/Padauk/raw/master/examples/blink/action%20shots/blink.gif)
 
 ### Toolchain:
 - Requires [SDCC 3.9.0](http://sdcc.sourceforge.net/) (or newer)
 - Requires [easy-pdk-programmer-software](https://github.com/free-pdk/easy-pdk-programmer-software)
-
-### Customization:
-Edit the options at the top of the Makefile to pick a different MCU, or use a different frequency for the system clock. 
 
 ### Build Commands:
 ```
@@ -35,3 +35,7 @@ make all
 make program
 make run
 ```
+
+### Build Stats
+- Code Size: ~ 192 bytes / 96 words (+/- a few bytes/words depending on the specific device choosen)
+- RAM usage: 2 bytes + stack
