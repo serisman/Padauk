@@ -37,5 +37,5 @@ make run
 ```
 
 ### Build Stats
-- Code Size: ~ 192 bytes / 96 words (+/- a few bytes/words depending on the specific device choosen)
-- RAM usage: 2 bytes + stack
+- Code Size: ~ 182 bytes / 91 words (+/- a few bytes/words depending on the specific device choosen)
+- RAM usage: 1 byte + stack

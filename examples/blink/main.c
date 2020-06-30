@@ -14,22 +14,17 @@
 
 volatile uint8_t quarter_seconds;
 
-uint8_t prev_quarter_seconds;
-
 // Main processing loop
 inline void loop() {
 
-	if (quarter_seconds != prev_quarter_seconds) {
-	  // Alternate between the first two LEDs
-	  if (quarter_seconds & 0b00000001) {
-	    ledOff(PIN_LED2);
-	    ledOn(PIN_LED1);
-	  } else {
-	    ledOff(PIN_LED1);
-	    ledOn(PIN_LED2);
-	  }
-		prev_quarter_seconds = quarter_seconds;
-	}
+  // Alternate between the first two LEDs
+  if (quarter_seconds & 0b00000001) {
+    ledOff(PIN_LED2);
+    ledOn(PIN_LED1);
+  } else {
+    ledOff(PIN_LED1);
+    ledOn(PIN_LED2);
+  }
 
   // Light up the 3rd LED whenever the Button is pressed
 	if (isBtnPressed(PIN_BTN)) {
@@ -41,7 +36,7 @@ inline void loop() {
 
 // Setup/enable hardware
 inline void setup() {
-	// Set LEDs as outputs (all pins are input by default)
+	// Setup LEDs as outputs (all pins are input by default)
 	setPinOutput(PIN_LED1);
 	ledOff(PIN_LED1);
 	setPinOutput(PIN_LED2);
@@ -49,7 +44,7 @@ inline void setup() {
 	setPinOutput(PIN_LED3);
 	ledOff(PIN_LED3);
 
-  // Set BTN as digital input with PullUp
+  // Setup Button as digital input with PullUp
   enableDigitalInput(PIN_BTN);
 	setPinPullup(PIN_BTN);
 
