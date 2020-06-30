@@ -17,6 +17,9 @@ TARGET_VDD = 4.0
 
 # ---------------------------------------------------------------------
 
+OUTPUT_NAME ?= 7-seg-clock
+DEBUG ?= 0
+
 ifeq ($(DEVICE), PMS152)
 	ARCH = pdk14
 else ifeq ($(DEVICE), PFS154)
@@ -25,10 +28,11 @@ else ifeq ($(DEVICE), PFS173)
 	ARCH = pdk15
 endif
 
-DEBUG ?= 0
-
 ROOT_DIR = ../..
 BUILD_DIR = .build
+OUTPUT_DIR = .output
+
+OUTPUT = $(OUTPUT_DIR)/$(OUTPUT_NAME)
 
 LIB_SOURCES = $(wildcard $(ROOT_DIR)/lib/*.c) $(wildcard $(ROOT_DIR)/lib/**/*.c)
 LIB_OBJECTS = $(patsubst $(ROOT_DIR)/lib/%.c,$(BUILD_DIR)/lib/%.rel,$(LIB_SOURCES))
@@ -58,27 +62,27 @@ $(BUILD_DIR)/lib/%.rel: $(ROOT_DIR)/lib/%.c
 $(BUILD_DIR)/lib.lib: $(LIB_OBJECTS)
 	$(BUILD_LIB) $@ $(LIB_OBJECTS)
 
-$(BUILD_DIR)/rom.ihx: $(OBJECTS) $(BUILD_DIR)/lib.lib
-	@mkdir -p $(dir $(BUILD_DIR))
-	$(LINK) --out-fmt-ihx -o $(BUILD_DIR)/rom.ihx $(OBJECTS) $(BUILD_DIR)/lib.lib
+$(OUTPUT).ihx: $(OBJECTS) $(BUILD_DIR)/lib.lib
+	@mkdir -p $(dir $(OUTPUT))
+	$(LINK) --out-fmt-ihx -o $(OUTPUT).ihx $(OBJECTS) $(BUILD_DIR)/lib.lib
 
-rom.hex: $(BUILD_DIR)/rom.ihx
-	packihx $(BUILD_DIR)/rom.ihx > rom.hex
+$(OUTPUT).hex: $(OUTPUT).ihx
+	packihx $(OUTPUT).ihx > $(OUTPUT).hex
 
-rom.bin: $(BUILD_DIR)/rom.ihx
-	makebin -p $(BUILD_DIR)/rom.ihx rom.bin
+$(OUTPUT).bin: $(OUTPUT).ihx
+	makebin -p $(OUTPUT).ihx $(OUTPUT).bin
 
-size: rom.bin
+size: $(OUTPUT).bin
 	@echo '---------- Segments ----------'
-	@egrep '(ABS,CON)|(REL,CON)' $(BUILD_DIR)/rom.map | gawk --non-decimal-data '{dec = sprintf("%d","0x" $$2); print dec " " $$0}' | /usr/bin/sort -n -k1 | cut -f2- -d' '
+	@egrep '(ABS,CON)|(REL,CON)' $(OUTPUT).map | gawk --non-decimal-data '{dec = sprintf("%d","0x" $$2); print dec " " $$0}' | /usr/bin/sort -n -k1 | cut -f2- -d' '
 	@echo '------------------------------'
-	@stat -L --printf "Size of rom.bin: %s bytes\n" rom.bin
+	@stat -L --printf "Size of $(OUTPUT_NAME).bin: %s bytes\n" $(OUTPUT).bin
 
 program: size
-	$(EASYPDKPROG) -n $(DEVICE) write $(BUILD_DIR)/rom.ihx
+	$(EASYPDKPROG) -n $(DEVICE) write $(OUTPUT).ihx
 
 run:
-	$(EASYPDKPROG) -n $(DEVICE) -r $(TARGET_VDD)) start
+	$(EASYPDKPROG) -r $(TARGET_VDD) start
 
 clean:
-	rm -r -f $(BUILD_DIR)
+	rm -r -f $(BUILD_DIR) $(OUTPUT_DIR)
