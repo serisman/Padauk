@@ -76,21 +76,11 @@ void main() {
 
 // Interrupt handler (kept as simple/minimalistic as possible)
 //  - When T16 'ticks' - Increment our quarter_seconds 'register'
-void interrupt(void) __interrupt(0) __naked {
-//	if (INTRQ & INTRQ_T16) {
-//		quarter_seconds++;
-//		INTRQ &= ~INTRQ_T16;
-//	}
-__asm
-	t1sn	_REG(INTRQ), #INTRQ_T16_BIT
-		goto  00001$
-	push  af
-	inc   _quarter_seconds
-	set0	_REG(INTRQ), #INTRQ_T16_BIT
-	pop   af
-00001$:
-	reti
-__endasm;
+void interrupt(void) __interrupt(0) {
+	if (INTRQ & INTRQ_T16) {
+		quarter_seconds++;
+		INTRQ &= ~INTRQ_T16;
+	}
 }
 
 unsigned char _sdcc_external_startup(void) {
