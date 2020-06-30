@@ -1,5 +1,4 @@
-#include "pdk/io.h"
-#include "util.h"
+#include "pdkuino.h"
 
 #define PORT_SEGMENTS   PB
 #define PIN_SR_DATA     PA,3
@@ -302,7 +301,7 @@ void every_quarter_second() {
 }
 
 // Main processing loop
-inline void loop() {
+void loop() {
 	if (quarter_seconds != prev_quarter_seconds) {
 		every_quarter_second();
 		prev_quarter_seconds = quarter_seconds;
@@ -312,7 +311,7 @@ inline void loop() {
 }
 
 // Setup/enable hardware
-inline void setup() {
+void setup() {
   // Make sure PA7/PA6 is Disabled for External Crystal (recommended for all ICs)
   // Make sure PA5 is Enabled as input for Button (needed by PMS152/PFS173)
   PADIER = 0b00100000;
@@ -339,13 +338,6 @@ inline void setup() {
 	// Enable interrupts
 	INTRQ = 0;
 	__engint();
-}
-
-void main() {
-	setup();
-	while(1) {
-		loop();
-	}
 }
 
 // Interrupt handler (kept as simple/minimalistic as possible)

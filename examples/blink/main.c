@@ -1,5 +1,4 @@
-#include "pdk/io.h"
-#include "util.h"
+#include "pdkuino.h"
 
 #define PIN_LED1        PA,3
 #define PIN_LED2        PA,4
@@ -15,7 +14,7 @@
 volatile uint8_t quarter_seconds;
 
 // Setup/enable hardware
-inline void setup() {
+void setup() {
 	// Setup LEDs as outputs (all pins are input by default)
 	setPinOutput(PIN_LED1);
 	ledOff(PIN_LED1);
@@ -43,7 +42,7 @@ inline void setup() {
 }
 
 // Main processing loop
-inline void loop() {
+void loop() {
 
   // Alternate between the first two LEDs
   if (isBitSet(quarter_seconds,0)) {
@@ -68,13 +67,6 @@ void interrupt(void) __interrupt(0) {
 	if (INTRQ & INTRQ_T16) {
 		quarter_seconds++;
 		INTRQ &= ~INTRQ_T16;
-	}
-}
-
-void main() {
-	setup();
-	while(1) {
-		loop();
 	}
 }
 
