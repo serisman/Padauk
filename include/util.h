@@ -41,6 +41,7 @@
 
 #define PORT_EX(port,pin)             port
 #define PORT_CTRL_EX(port,pin)        port ## c
+#define PORT_DIER_EX(port,pin)        port ## dier
 #define PORT_PULLUP_EX(port,pin)      port ## ph
 #define PIN_EX(port,pin)              port ## pin
 
@@ -59,6 +60,9 @@
 
 #define setPinOutput(pinspec)         setBit(PORT_CTRL_EX(pinspec),ARG2_EX(pinspec))
 #define setPinInput(pinspec)          clearBit(PORT_CTRL_EX(pinspec),ARG2_EX(pinspec))
+
+#define enableDigitalInput(pinspec)   setBit(PORT_DIER_EX(pinspec),ARG2_EX(pinspec))
+#define disableDigitalInput(pinspec)  clearBit(PORT_DIER_EX(pinspec),ARG2_EX(pinspec))
 
 #define setPinPullup(pinspec)         setBit(PORT_PULLUP_EX(pinspec),ARG2_EX(pinspec))
 #define clearPinPullup(pinspec)       clearBit(PORT_PULLUP_EX(pinspec),ARG2_EX(pinspec))
