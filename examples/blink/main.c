@@ -14,26 +14,6 @@
 
 volatile uint8_t quarter_seconds;
 
-// Main processing loop
-inline void loop() {
-
-  // Alternate between the first two LEDs
-  if (quarter_seconds & 0b00000001) {
-    ledOff(PIN_LED2);
-    ledOn(PIN_LED1);
-  } else {
-    ledOff(PIN_LED1);
-    ledOn(PIN_LED2);
-  }
-
-  // Light up the 3rd LED whenever the Button is pressed
-	if (isBtnPressed(PIN_BTN)) {
-	  ledOn(PIN_LED3);
-	} else {
-	  ledOff(PIN_LED3);
-	}
-}
-
 // Setup/enable hardware
 inline void setup() {
 	// Setup LEDs as outputs (all pins are input by default)
@@ -62,10 +42,23 @@ inline void setup() {
 	__engint();
 }
 
-void main() {
-	setup();
-	while(1) {
-		loop();
+// Main processing loop
+inline void loop() {
+
+  // Alternate between the first two LEDs
+  if (isBitSet(quarter_seconds,0)) {
+    ledOff(PIN_LED2);
+    ledOn(PIN_LED1);
+  } else {
+    ledOff(PIN_LED1);
+    ledOn(PIN_LED2);
+  }
+
+  // Light up the 3rd LED whenever the Button is pressed
+	if (isBtnPressed(PIN_BTN)) {
+	  ledOn(PIN_LED3);
+	} else {
+	  ledOff(PIN_LED3);
 	}
 }
 
@@ -75,6 +68,13 @@ void interrupt(void) __interrupt(0) {
 	if (INTRQ & INTRQ_T16) {
 		quarter_seconds++;
 		INTRQ &= ~INTRQ_T16;
+	}
+}
+
+void main() {
+	setup();
+	while(1) {
+		loop();
 	}
 }
 
