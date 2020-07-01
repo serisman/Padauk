@@ -14,7 +14,7 @@ uint8_t hours_10=1, hours_01=2, minutes_10, minutes_01, seconds_10, seconds_01, 
 
 // Initialize display to --:--
 uint8_t digit1=0b01000000, digit2=0b01000000, digit3=0b01000000, digit4=0b01000000;
-uint8_t current_digit_mask = 0b00000001;
+uint8_t current_digit_mask = 0b10001000;
 
 uint8_t _tmp, prev_quarter_seconds, btn_ctr, display_mode, config_mode, config_ctr;
 
@@ -30,6 +30,7 @@ uint8_t _tmp, prev_quarter_seconds, btn_ctr, display_mode, config_mode, config_c
 //   - Abuse of the 74HC595 output pins (i.e. varying/over current conditions when varying/most/all segments are lit).
 //  Ideally, one would use current limiting resistors on the segments, and a proper digit driver (i.e. ULN2003),
 //   but for a cheap/demo/experiment version it seems good enough without the additional supporting components.
+//  We can double up the 74HC595 output pins (i.e. 2 per digit) for extra current sink capability (further reduces the flicker)
 //
 //  Assumes (#define'd above):
 //   Segments[a-g,dp] are mapped to PB[0-7]
@@ -39,18 +40,18 @@ uint8_t _tmp, prev_quarter_seconds, btn_ctr, display_mode, config_mode, config_c
 void display_next_digit() {
 __asm
 	;// Rotate to next digit
-	sl    _current_digit_mask
-	mov   a, #0b00000001
-	t0sn  _current_digit_mask, #4
-		mov   _current_digit_mask, a
+  set0  f, c
+  t0sn  _current_digit_mask, #7
+    set1  f, c
+  slc   _current_digit_mask
 
 	;// Shift out /EN for all digits to 74HC595
 	mov   a, _current_digit_mask
 	mov   __tmp, a
-	mov   a, #4
+	mov   a, #8
 00001$:
 	set1  _REG(PIN_SR_DATA), #_BIT(PIN_SR_DATA)
-	t0sn  __tmp, #3
+	t0sn  __tmp, #7
 		set0  _REG(PIN_SR_DATA), #_BIT(PIN_SR_DATA)
 	set1  _REG(PIN_SR_CLOCK), #_BIT(PIN_SR_CLOCK)
 	set0  _REG(PIN_SR_CLOCK), #_BIT(PIN_SR_CLOCK)
