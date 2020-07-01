@@ -225,10 +225,11 @@ void update_config_display() {
 			case 6:
 			case 7: digit1 = 0; break;
 		}
+	} else {
+	  // Blink the seconds indictor as a config indicator
+  	setBit(digit2,7);
+	  setBit(digit4,7);
 	}
-
-	setBit(digit2,7);
-	setBit(digit4,7);
 }
 
 // Write the appropriate 'screen' to the 4x 7-segment digit 'registers'
