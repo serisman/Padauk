@@ -7,8 +7,8 @@
 # ---------------------------------------------------------------------
 
 #DEVICE = PMS152
-#DEVICE = PFS154
-DEVICE = PFS173
+DEVICE = PFS154
+#DEVICE = PFS173
 #F_CPU = 65536
 F_CPU = 524288
 TARGET_VDD_MV = 4000
@@ -16,7 +16,7 @@ TARGET_VDD = 4.0
 
 # ---------------------------------------------------------------------
 
-OUTPUT_NAME ?= blink
+OUTPUT_NAME ?= blink_$(DEVICE)
 DEBUG ?= 0
 
 ifeq ($(DEVICE), PMS152)

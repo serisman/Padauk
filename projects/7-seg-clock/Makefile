@@ -17,7 +17,7 @@ TARGET_VDD = 4.0
 
 # ---------------------------------------------------------------------
 
-OUTPUT_NAME ?= 7-seg-clock
+OUTPUT_NAME ?= 7-seg-clock_$(DEVICE)
 DEBUG ?= 0
 
 ifeq ($(DEVICE), PMS152)
