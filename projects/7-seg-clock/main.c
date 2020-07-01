@@ -360,6 +360,14 @@ __endasm;
 }
 
 unsigned char _sdcc_external_startup(void) {
+#if defined(PMS152)
+  EASY_PDK_FUSE(FUSE_SECURITY_OFF|FUSE_BOOTUP_FAST);
+#elif defined(PFS154)
+  EASY_PDK_FUSE(FUSE_SECURITY_OFF|FUSE_IO_DRV_NORMAL|FUSE_BOOTUP_FAST);
+#elif defined(PFS173)
+  EASY_PDK_FUSE(FUSE_SECURITY_OFF|FUSE_PB4PB5_NORMAL|FUSE_BOOTUP_FAST);
+#endif
+
   // Make sure we have a reasonable LVR value.
   // Red LEDs work at around 2V, so let's use that as our minimum.
   MISCLVR = MISCLVR_2V;
